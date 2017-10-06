@@ -1,10 +1,15 @@
 <?php
 
-namespace TestMVC;
+namespace TestMVC\Core;
 
 
 class Logger
 {
+    private function __construct()
+    {
+
+    }
+
     static function logError($errorCode)
     {
         switch ($errorCode)

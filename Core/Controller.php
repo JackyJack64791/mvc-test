@@ -1,9 +1,9 @@
 <?php
 
-namespace TestMVC;
+namespace TestMVC\Core;
 
 
-class View
+class Controller
 {
     public function __construct()
     {

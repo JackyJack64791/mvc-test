@@ -1,6 +1,6 @@
 <?php
 
-namespace TestMVC;
+namespace TestMVC\Core\Databases;
 
 interface IDatabase
 {
