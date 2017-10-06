@@ -9,4 +9,8 @@ class View
     {
 
     }
+    public function view()
+    {
+
+    }
 }

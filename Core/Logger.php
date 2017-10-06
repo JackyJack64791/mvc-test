@@ -10,18 +10,18 @@ class Logger
 
     }
 
-    static function logError($errorCode)
+    static function log_error($errorCode)
     {
         switch ($errorCode)
         {
             case 42:
-                echo "Connection is broken. Check your database";
+                echo "Connection is broken. Check your database\n";
                 break;
             case 43:
-                echo "Connection is already closed";
+                echo "Connection is already closed\n";
                 break;
             default:
-                echo "Unknown error. Please, try again";
+                echo "Unknown error. Please, try again\n";
                 break;
         }
     }

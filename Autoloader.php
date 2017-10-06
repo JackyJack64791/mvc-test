@@ -3,9 +3,9 @@
 class Autoloader
 {
 
-    protected $namespacesMap = array();
+    private $namespacesMap = array();
 
-    public function addNamespace($namespace, $rootDir)
+    public function add_namespace($namespace, $rootDir) : bool
     {
         if (is_dir($rootDir)) {
             $this->namespacesMap[$namespace] = $rootDir;
@@ -20,7 +20,7 @@ class Autoloader
         spl_autoload_register(array($this, 'autoload'));
     }
 
-    protected function autoload($class)
+    private function autoload($class) : bool
     {
         $pathParts = explode('\\', $class);
         if (is_array($pathParts)) {

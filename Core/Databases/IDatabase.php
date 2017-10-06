@@ -2,11 +2,18 @@
 
 namespace TestMVC\Core\Databases;
 
-interface IDatabase
+abstract class IDatabase
 {
-    public function __construct($dbName, $host);
+    protected $db;
 
-    public function openConnection($user, $password);
+    public abstract function __construct(string $dbName, string $host);
 
-    public function closeConnection();
+    public abstract function open_connection(string $user, string $password);
+
+    public abstract function close_connection();
+
+    public abstract function is_connected():bool;
+
+
+
 }
