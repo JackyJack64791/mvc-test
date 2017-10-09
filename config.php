@@ -7,5 +7,5 @@ $autoloader->add_namespace('TestMVC\Core', __DIR__ . 'Core');
 $autoloader->add_namespace('TestMVC\Core\Databases', __DIR__ . 'Core/Databases');
 $autoloader->register();
 //config db
-\TestMVC\Core\Model::connection('testroot','12345');
-echo $db->is_connected();
+
+$GLOBALS['db'] = new \TestMVC\Core\Databases\MySQLDatabase('db','localhost', 'testroot','12345');

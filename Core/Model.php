@@ -4,41 +4,39 @@ namespace TestMVC\Core;
 
 
 use TestMVC\Core\Databases\IDatabase;
+use \PDOStatement;
 
 class Model
 {
     protected $db;
     protected $tableName;
-    public function __construct(IDatabase $db, string $tableName)
+    protected $fields = array();
+
+    public function __construct(IDatabase $db, string $tableName, array $fields)
     {
         $this->db = $db;
-        $this->tableName = $tableName;
+        $this->tableName=$tableName;
+        $this->fields=$fields;
     }
 
-    public function connection(string $user, string $password)
+    public function insert(array $params) :PDOStatement
     {
-        $this->db = new \TestMVC\Core\Databases\MySQLDatabase('db','localhost');
-        $this->db->open_connection('testroot','12345');
+        return $this->db->insert($this->tableName,$params);
     }
-    public function insert(array $params)
+    public function update(string $key, string $value, array $params) :PDOStatement
     {
-
+        return $this->db->update($this->tableName,$key,$value,$params);
     }
-    public function update()
+    public function delete(string $key, string $value) :PDOStatement
     {
-
+        return $this->db->delete($this->tableName,$key,$value);
     }
-    public function delete()
+    public function get(string $key, string $value) :PDOStatement
     {
-
+        return $this->db->get($this->tableName,$key,$value);
     }
-    public function get(int $id)
+    public function get_all() :PDOStatement
     {
-
-    }
-    public function get_all(): string
-    {
-        $query = 'SELECT * FROM $this->tableName';
-       // $this->db->dbconnection
+       return $this->db->get_all($this->tableName);
     }
 }

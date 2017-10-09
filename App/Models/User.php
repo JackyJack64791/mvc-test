@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alexey
- * Date: 06.10.17
- * Time: 16:35
- */
 
 namespace TestMVC\App\Models;
 
@@ -14,13 +8,12 @@ use TestMVC\Core\Model;
 
 class User extends Model
 {
+    protected $tableName = 'user';
+    protected $fields = array();
     public function __construct(IDatabase $db)
     {
-        parent::__construct($db, 'user');
+        parent::__construct($db, $this->tableName, $this->fields);
     }
 
-    public function get_users()
-    {
 
-    }
 }

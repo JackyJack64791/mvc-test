@@ -26,7 +26,7 @@ class Autoloader
         if (is_array($pathParts)) {
             $namespace = array_shift($pathParts);
 
-            if (!empty($this->namespacesMap[$namespace])) {
+            if (isset($this->namespacesMap[$namespace])) {
                 $filePath = $this->namespacesMap[$namespace] . '/' . implode('/', $pathParts) . '.php';
                 require_once $filePath;
                 return true;
