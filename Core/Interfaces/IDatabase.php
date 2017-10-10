@@ -20,13 +20,15 @@ abstract class IDatabase
 
     public abstract function insert(string $tableName, array $params) :PDOStatement;
 
-    public abstract function get(string $tableName, string $key, string $value) :PDOStatement;
+    public abstract function get(string $tableName, int $id) :PDOStatement;
 
     public abstract function get_all(string $tableName) :PDOStatement;
 
-    public abstract function update(string $tableName, string $key, string $value, array $params) :PDOStatement;
+    public abstract function update(string $tableName, int $id,  array $params) :PDOStatement;
 
-    public abstract function delete(string $tableName, string $key, string $value) :PDOStatement;
+    public abstract function delete(string $tableName, int $id) :PDOStatement;
+
+    public abstract function query(string $query): PDOStatement;
 
 
 
