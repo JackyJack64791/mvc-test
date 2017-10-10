@@ -5,13 +5,15 @@ namespace TestMVC\Core;
 class Logger
 {
     private $path;
-    private $file;
+    //private $file;
+    private $logPath;
     private $fileName;
     private static $count = 0;
-    public function __construct()
+    public function __construct(string $logPath)
     {
+        $this->logPath = $logPath;
         $this->fileName = date("Y-m-d_H:m:s_").self::$count.".txt";
-        $this->path= __DIR__.'/../'.$GLOBALS['log_path'].'/'.$this->fileName;
+        $this->path= __DIR__.'/../'.$this->logPath.'/'.$this->fileName;
         self::$count++;
     }
 
@@ -44,6 +46,10 @@ class Logger
             case 43:
                 echo "Connection is already closed;\n";
                 file_put_contents($this->path,"Connection is already closed;\n");
+                break;
+            case 80:
+                echo "Property is already used. Access denied;\n";
+                file_put_contents($this->path,"Property is already used. Access denied;\n");
                 break;
             default:
                 echo "Unknown error. Please, try again;\n";

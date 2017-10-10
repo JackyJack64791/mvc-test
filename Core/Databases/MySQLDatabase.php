@@ -21,7 +21,7 @@ class MySQLDatabase extends IDatabase
     {
         $this->dbName = $dbName;
         $this->host = $host;
-        $this->logger = new Logger();
+        //TODO://$this->logger = new Logger();
         self::open_connection($user, $password);
 
     }

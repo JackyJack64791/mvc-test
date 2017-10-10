@@ -11,13 +11,13 @@ class Model implements IModel
 {
     protected $db;
     protected $tableName;
-    protected $fields = array();
+    //protected $fields = [];
 
-    public function __construct(IDatabase $db, string $tableName, array $fields)
+    public function __construct(IDatabase $db, string $tableName)//, array $fields)
     {
         $this->db = $db;
         $this->tableName=$tableName;
-        $this->fields=$fields;
+        //$this->fields=$fields;
     }
 
     public function insert(array $params) :PDOStatement
