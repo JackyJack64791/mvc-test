@@ -3,7 +3,7 @@
 namespace TestMVC\App\Models;
 
 
-use TestMVC\Core\Databases\IDatabase;
+use TestMVC\Core\Interfaces\IDatabase;
 use TestMVC\Core\Model;
 
 class User extends Model

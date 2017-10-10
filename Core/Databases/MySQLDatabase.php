@@ -7,6 +7,7 @@ use TestMVC\Core\Logger;
 use \PDO;
 use \PDOException;
 use \PDOStatement;
+use TestMVC\Core\Interfaces\IDatabase;
 
 class MySQLDatabase extends IDatabase
 {
@@ -14,12 +15,15 @@ class MySQLDatabase extends IDatabase
     private $dbName;
     private $host;
     private $isConnected = false;
+    private $logger;
 
     public function __construct(string $dbName, string $host, string $user, string $password)
     {
         $this->dbName = $dbName;
         $this->host = $host;
+        $this->logger = new Logger();
         self::open_connection($user, $password);
+
     }
 
     public function open_connection(string $user, string $password)
@@ -28,11 +32,12 @@ class MySQLDatabase extends IDatabase
         {
             $this->dbConnection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbName, $user, $password);
             $this->isConnected = true;
+            $this->logger->log_ok(20);
         }
         catch(PDOException $e)
         {
             echo $e->getMessage();
-            Logger::log_error(42);
+            $this->logger->log_error(42);
         }
     }
     public function get_dbConnection() : PDO
@@ -43,7 +48,7 @@ class MySQLDatabase extends IDatabase
     {
         if(!isset($this->dbConnection))
         {
-            Logger::log_error(43);
+            $this->logger->log_error(43);
             return;
         }
         $this->dbConnection = null;
@@ -62,14 +67,13 @@ class MySQLDatabase extends IDatabase
         $assoc_values = "('".implode("', '", $params)."') ";
 
         $query = $this->get_dbConnection()->prepare("INSERT INTO $tableName $assoc_keys VALUES $assoc_values");
-        print_r($query);
         $query->execute();
         return $query;
     }
 
-    public function get(string $tableName, string $key, string $value) :PDOStatement
+    public function get(string $tableName, int $id) :PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare("SELECT * FROM $tableName WHERE $key='$value'");
+        $query = $this->get_dbConnection()->prepare("SELECT * FROM $tableName WHERE id=$id");
         $query->execute();
         return $query;
     }
@@ -81,21 +85,28 @@ class MySQLDatabase extends IDatabase
         return $query;
     }
 
-    public function update(string $tableName, string $key, string $value, array $params) :PDOStatement
+    public function update(string $tableName, int $id, array $params) :PDOStatement
     {
         $assoc_string = '';
         foreach($params as $first=>$second)
         {
             $assoc_string .= $first.' = '."'$second',";
         }
-        $query = $this->get_dbConnection()->prepare("UPDATE $tableName SET $assoc_string WHERE $key=$value");
+        $query = $this->get_dbConnection()->prepare("UPDATE $tableName SET $assoc_string WHERE id=$id");
         $query->execute();
         return $query;
     }
 
-    public function delete(string $tableName, string $key, string $value) :PDOStatement
+    public function delete(string $tableName, int $id) :PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare("DELETE FROM $tableName WHERE $key='$value'");
+        $query = $this->get_dbConnection()->prepare("DELETE FROM $tableName WHERE id=$id");
+        $query->execute();
+        return $query;
+    }
+
+    public  function query(string $query): PDOStatement
+    {
+        $query = $this->get_dbConnection()->prepare($query);
         $query->execute();
         return $query;
     }

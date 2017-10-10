@@ -3,10 +3,11 @@
 namespace TestMVC\Core;
 
 
-use TestMVC\Core\Databases\IDatabase;
+use TestMVC\Core\Interfaces\IDatabase;
 use \PDOStatement;
+use TestMVC\Core\Interfaces\IModel;
 
-class Model
+class Model implements IModel
 {
     protected $db;
     protected $tableName;
@@ -23,20 +24,24 @@ class Model
     {
         return $this->db->insert($this->tableName,$params);
     }
-    public function update(string $key, string $value, array $params) :PDOStatement
+    public function update(int $id, array $params) :PDOStatement
     {
-        return $this->db->update($this->tableName,$key,$value,$params);
+        return $this->db->update($this->tableName,$id,$params);
     }
-    public function delete(string $key, string $value) :PDOStatement
+    public function delete(int $id) :PDOStatement
     {
-        return $this->db->delete($this->tableName,$key,$value);
+        return $this->db->delete($this->tableName,$id);
     }
-    public function get(string $key, string $value) :PDOStatement
+    public function get(int $id) :PDOStatement
     {
-        return $this->db->get($this->tableName,$key,$value);
+        return $this->db->get($this->tableName,$id);
     }
     public function get_all() :PDOStatement
     {
        return $this->db->get_all($this->tableName);
+    }
+    public function query(string $query) :PDOStatement
+    {
+        return $this->db->query($query);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Autoloader
+class AutoloaderNamespaces
 {
 
     private $namespacesMap = array();

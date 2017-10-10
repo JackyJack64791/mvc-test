@@ -1,6 +1,6 @@
 <?php
 
-namespace TestMVC\Core\Databases;
+namespace TestMVC\Core\Interfaces;
 use \PDO;
 use \PDOStatement;
 
