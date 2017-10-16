@@ -9,8 +9,4 @@ class Controller
     {
 
     }
-    public function error404()
-    {
-        echo "Not Found!";
-    }
 }
