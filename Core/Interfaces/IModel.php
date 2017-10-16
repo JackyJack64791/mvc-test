@@ -5,6 +5,7 @@ use \PDOStatement;
 
 interface IModel
 {
+    public function getName() : string;
     public function insert(array $params): PDOStatement;
     public function update(int $id, array $params) :PDOStatement;
     public function delete(int $id) :PDOStatement;

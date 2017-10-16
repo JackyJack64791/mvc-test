@@ -2,12 +2,15 @@
 
 namespace TestMVC\Core;
 
-class Logger
+use TestMVC\Core\Interfaces\ILogger;
+
+class Logger implements ILogger
 {
     private $path;
     private $logPath;
     private $fileName;
     private static $count = 0;
+
     public function __construct(string $logPath)
     {
         $this->logPath = $logPath;
@@ -40,11 +43,11 @@ class Logger
         echo $msg;
         file_put_contents($this->path,$msg, FILE_APPEND);
     }
-    public function logError($errorCode)
+    public function logError($code)
     {
         $date = '['.date("H:m:s").']';
         $msg = '';
-        switch ($errorCode)
+        switch ($code)
         {
             case 42:
                 $msg = "$date Connection is broken. Check your database;\n";

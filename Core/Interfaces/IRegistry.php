@@ -3,11 +3,10 @@
 namespace TestMVC\Core\Interfaces;
 
 
-abstract class IRegistry
+interface IRegistry
 {
-    protected $vars = [];
 
-    public abstract function __construct(array $vars);
-    public abstract function __get($key);
-    public abstract function __set($key,$value);
+    public function __construct(array $vars);
+    public function __get($key);
+    public function __set($key,$value);
 }

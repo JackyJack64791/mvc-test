@@ -9,7 +9,7 @@ use \PDOException;
 use \PDOStatement;
 use TestMVC\Core\Interfaces\IDatabase;
 
-class MySQLDatabase extends IDatabase
+class MySQLDatabase implements IDatabase
 {
     private $bootstrap;
     protected $dbConnection;

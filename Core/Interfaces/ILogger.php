@@ -1,13 +1,13 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace TestMVC\Core\Interfaces;
 
 
 interface ILogger
 {
-    public function __construct();
+    public function __construct(string $logPath);
     public function __destruct();
     public function logOk($code);
-    public function logError($errorCode);
+    public function logError($code);
     public function logWarning($code);
 }

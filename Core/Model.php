@@ -20,6 +20,11 @@ class Model implements IModel
         //$this->fields=$fields;
     }
 
+    public function getName() : string
+    {
+        return $this->tableName;
+    }
+
     public function insert(array $params) :PDOStatement
     {
         return $this->db->insert($this->tableName,$params);

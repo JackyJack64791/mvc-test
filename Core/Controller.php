@@ -2,11 +2,16 @@
 
 namespace TestMVC\Core;
 
+use TestMVC\Core\Interfaces\IController;
 
-class Controller
+class Controller implements IController
 {
-    public function __construct()
-    {
+    protected $model;
 
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
     }
+
+
 }

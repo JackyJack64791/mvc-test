@@ -4,31 +4,29 @@ namespace TestMVC\Core\Interfaces;
 use \PDO;
 use \PDOStatement;
 
-abstract class IDatabase
+interface IDatabase
 {
-    protected $dbConnection;
+    public function __construct(string $dbName, string $host, string $user, string $password);
 
-    public abstract function __construct(string $dbName, string $host, string $user, string $password);
+    public function openConnection(string $user, string $password);
 
-    public abstract function openConnection(string $user, string $password);
+    public function getDbConnection() : PDO;
 
-    public abstract function getDbConnection() : PDO;
+    public function closeConnection();
 
-    public abstract function closeConnection();
+    public function isConnected():bool;
 
-    public abstract function isConnected():bool;
+    public function insert(string $tableName, array $params) :PDOStatement;
 
-    public abstract function insert(string $tableName, array $params) :PDOStatement;
+    public function get(string $tableName, int $id) :PDOStatement;
 
-    public abstract function get(string $tableName, int $id) :PDOStatement;
+    public function getAll(string $tableName) :PDOStatement;
 
-    public abstract function getAll(string $tableName) :PDOStatement;
+    public function update(string $tableName, int $id,  array $params) :PDOStatement;
 
-    public abstract function update(string $tableName, int $id,  array $params) :PDOStatement;
+    public function delete(string $tableName, int $id) :PDOStatement;
 
-    public abstract function delete(string $tableName, int $id) :PDOStatement;
-
-    public abstract function query(string $query): PDOStatement;
+    public function query(string $query): PDOStatement;
 
 
 

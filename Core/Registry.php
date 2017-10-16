@@ -4,7 +4,7 @@ namespace TestMVC\Core;
 
 use TestMVC\Core\Interfaces\IRegistry;
 
-class Registry extends IRegistry
+class Registry implements IRegistry
 {
     protected $vars = [];
     public function __construct(array $vars=[])
