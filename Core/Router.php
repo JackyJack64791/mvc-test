@@ -3,7 +3,9 @@
 namespace TestMVC\Core;
 
 
-class Router
+use TestMVC\Core\Interfaces\IRouter;
+
+class Router implements IRouter
 {
 
 }

@@ -10,19 +10,19 @@ abstract class IDatabase
 
     public abstract function __construct(string $dbName, string $host, string $user, string $password);
 
-    public abstract function open_connection(string $user, string $password);
+    public abstract function openConnection(string $user, string $password);
 
-    public abstract function get_dbConnection() : PDO;
+    public abstract function getDbConnection() : PDO;
 
-    public abstract function close_connection();
+    public abstract function closeConnection();
 
-    public abstract function is_connected():bool;
+    public abstract function isConnected():bool;
 
     public abstract function insert(string $tableName, array $params) :PDOStatement;
 
     public abstract function get(string $tableName, int $id) :PDOStatement;
 
-    public abstract function get_all(string $tableName) :PDOStatement;
+    public abstract function getAll(string $tableName) :PDOStatement;
 
     public abstract function update(string $tableName, int $id,  array $params) :PDOStatement;
 

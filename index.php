@@ -1,7 +1,12 @@
 <?php
+
 session_start();
+
 use \TestMVC\App\Models\User;
-require_once 'config.php';
-$user = new User($registry->db);
+
+require_once 'Bootstrap.php';
+$bootstrap = Bootstrap::getInstance();
+$bootstrap->init("Logs");
+$user = new User($bootstrap->db);
 
 ?>

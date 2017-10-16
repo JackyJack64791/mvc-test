@@ -11,44 +11,47 @@ use TestMVC\Core\Interfaces\IDatabase;
 
 class MySQLDatabase extends IDatabase
 {
+    private $bootstrap;
     protected $dbConnection;
     private $dbName;
     private $host;
     private $isConnected = false;
     private $logger;
 
+
     public function __construct(string $dbName, string $host, string $user, string $password)
     {
+        $this->bootstrap = \Bootstrap::getInstance();
         $this->dbName = $dbName;
         $this->host = $host;
-        //TODO://$this->logger = new Logger();
-        self::open_connection($user, $password);
+        $this->logger = $this->bootstrap->getLogger();
+        self::openConnection($user, $password);
 
     }
 
-    public function open_connection(string $user, string $password)
+    public function openConnection(string $user, string $password)
     {
         try
         {
             $this->dbConnection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbName, $user, $password);
             $this->isConnected = true;
-            $this->logger->log_ok(20);
+            $this->logger->logOk(20);
         }
         catch(PDOException $e)
         {
             echo $e->getMessage();
-            $this->logger->log_error(42);
+            $this->logger->logError(42);
         }
     }
-    public function get_dbConnection() : PDO
+    public function getDbConnection() : PDO
     {
         return $this->dbConnection;
     }
-    public function close_connection()
+    public function closeConnection()
     {
         if(!isset($this->dbConnection))
         {
-            $this->logger->log_error(43);
+            $this->logger->logError(43);
             return;
         }
         $this->dbConnection = null;
@@ -56,7 +59,7 @@ class MySQLDatabase extends IDatabase
     }
 
 
-    public function is_connected(): bool
+    public function isConnected(): bool
     {
         return $this->isConnected;
     }
@@ -66,21 +69,21 @@ class MySQLDatabase extends IDatabase
         $assoc_keys = " (`".implode("`, `", array_keys($params))."`)";
         $assoc_values = "('".implode("', '", $params)."') ";
 
-        $query = $this->get_dbConnection()->prepare("INSERT INTO $tableName $assoc_keys VALUES $assoc_values");
+        $query = $this->getDbConnection()->prepare("INSERT INTO $tableName $assoc_keys VALUES $assoc_values");
         $query->execute();
         return $query;
     }
 
     public function get(string $tableName, int $id) :PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare("SELECT * FROM $tableName WHERE id=$id");
+        $query = $this->getDbConnection()->prepare("SELECT * FROM $tableName WHERE id=$id");
         $query->execute();
         return $query;
     }
 
-    public function get_all(string $tableName) :PDOStatement
+    public function getAll(string $tableName) :PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare("SELECT * FROM $tableName");
+        $query = $this->getDbConnection()->prepare("SELECT * FROM $tableName");
         $query->execute();
         return $query;
     }
@@ -92,21 +95,21 @@ class MySQLDatabase extends IDatabase
         {
             $assoc_string .= $first.' = '."'$second',";
         }
-        $query = $this->get_dbConnection()->prepare("UPDATE $tableName SET $assoc_string WHERE id=$id");
+        $query = $this->getDbConnection()->prepare("UPDATE $tableName SET $assoc_string WHERE id=$id");
         $query->execute();
         return $query;
     }
 
     public function delete(string $tableName, int $id) :PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare("DELETE FROM $tableName WHERE id=$id");
+        $query = $this->getDbConnection()->prepare("DELETE FROM $tableName WHERE id=$id");
         $query->execute();
         return $query;
     }
 
     public  function query(string $query): PDOStatement
     {
-        $query = $this->get_dbConnection()->prepare($query);
+        $query = $this->getDbConnection()->prepare($query);
         $query->execute();
         return $query;
     }

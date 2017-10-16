@@ -5,7 +5,7 @@ class AutoloaderNamespaces
 
     private $namespacesMap = array();
 
-    public function add_namespace($namespace, $rootDir) : bool
+    public function addNamespace($namespace, $rootDir) : bool
     {
         if (is_dir($rootDir)) {
             $this->namespacesMap[$namespace] = $rootDir;

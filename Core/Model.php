@@ -36,7 +36,7 @@ class Model implements IModel
     {
         return $this->db->get($this->tableName,$id);
     }
-    public function get_all() :PDOStatement
+    public function getAll() :PDOStatement
     {
        return $this->db->get_all($this->tableName);
     }

@@ -9,7 +9,7 @@ class View
     {
 
     }
-    public function view()
+    public static function view()
     {
 
     }

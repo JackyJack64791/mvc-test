@@ -5,7 +5,6 @@ namespace TestMVC\Core;
 class Logger
 {
     private $path;
-    //private $file;
     private $logPath;
     private $fileName;
     private static $count = 0;
@@ -22,44 +21,52 @@ class Logger
         self::$count--;
     }
 
-    public function log_ok($code)
+    public function logOk($code)
     {
+        $date = '['.date("H:m:s").']';
+        $msg = '';
         switch ($code)
         {
+            case 1:
+                $msg = "$date Bootstrap: OK;\n";
+                break;
             case 20:
-                echo "Connection : OK;\n";
-                file_put_contents($this->path,"Connection : OK\n");
+                $msg = "$date Connection : OK;\n";
                 break;
             default:
-                echo "Q_Q\n";
+                $msg = "Q_Q\n";
                 break;
         }
+        echo $msg;
+        file_put_contents($this->path,$msg, FILE_APPEND);
     }
-    public function log_error($errorCode)
+    public function logError($errorCode)
     {
+        $date = '['.date("H:m:s").']';
+        $msg = '';
         switch ($errorCode)
         {
             case 42:
-                echo "Connection is broken. Check your database;\n";
-                file_put_contents($this->path,"Connection is broken. Check your database;\n");
+                $msg = "$date Connection is broken. Check your database;\n";
                 break;
             case 43:
-                echo "Connection is already closed;\n";
-                file_put_contents($this->path,"Connection is already closed;\n");
+                $msg = "$date Connection is already closed;\n";
                 break;
             case 80:
-                echo "Property is already used. Access denied;\n";
-                file_put_contents($this->path,"Property is already used. Access denied;\n");
+                $msg = "$date Property is already used. Access denied;\n";
                 break;
             default:
-                echo "Unknown error. Please, try again;\n";
-                file_put_contents($this->path,"Unknown error. Please, try again;\n");
+                $msg = "$date Unknown error. Please, try again;\n";
                 break;
         }
+        echo $msg;
+        file_put_contents($this->path,$msg, FILE_APPEND);
     }
 
-    public function log_warning($code)
+    public function logWarning($code)
     {
+        $date = '['.date("H:m:s").']';
+        $msg = '';
 
     }
 
