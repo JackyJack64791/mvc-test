@@ -3,6 +3,7 @@
 use \TestMVC\Core\Registry;
 use \TestMVC\Core\Databases\MySQLDatabase;
 use \TestMVC\Core\Logger;
+use \TestMVC\Core\Router;
 require_once 'AutoloaderNamespaces.php';
 
 
@@ -49,6 +50,7 @@ final class Bootstrap
         $this->addRegistry();
         $this->addLogger($logPath);
         $this->configDatabase();
+        $this->initRouter();
         $this->getLogger()->logOk(1);
     }
 
@@ -84,6 +86,13 @@ final class Bootstrap
     {
         end(self::$registries)->db = new MySQLDatabase('db','localhost', 'testroot','12345');
     }
+
+    public function initRouter()
+    {
+        end(self::$registries)->router = new Router();
+        end(self::$registries)->router->init();
+    }
+
 }
 
 

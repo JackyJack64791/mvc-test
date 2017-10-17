@@ -43,7 +43,7 @@ class Model implements IModel
     }
     public function getAll() :PDOStatement
     {
-       return $this->db->get_all($this->tableName);
+       return $this->db->getAll($this->tableName);
     }
     public function query(string $query) :PDOStatement
     {

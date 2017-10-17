@@ -17,12 +17,12 @@ use TestMVC\Core\View;
 class UserController extends Controller
 {
     private $bootstrap;
-    private $model;
+    protected $model;
 
     public function __construct(Model $model)
     {
         $this->bootstrap = \Bootstrap::getInstance();
-        $this->model = new User($this->bootstrap->db);
+        $this->model = $model;
         parent::__construct($model);
     }
 
