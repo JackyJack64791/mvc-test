@@ -8,7 +8,7 @@ use TestMVC\Core\Interfaces\IView;
 class View implements IView
 {
 
-    public function view(string $viewName, string $action, array $params=[])
+    public static function view(string $viewName = "site", string $action = "index", array $params=[])
     {
         //extract($params, EXTR_SKIP);
         $file = "App/Views/". ucfirst(strtolower($viewName)).'/'.(strtolower($action).".php");

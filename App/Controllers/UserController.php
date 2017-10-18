@@ -28,6 +28,15 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        View::view($this->model->getName(), "index");
+        View::view($this->model->getName());
+    }
+
+    public function searchAction()
+    {
+
+    }
+    public function createAction()
+    {
+
     }
 }

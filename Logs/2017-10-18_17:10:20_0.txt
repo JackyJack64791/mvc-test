@@ -1,0 +1,2 @@
+[17:10:20] Connection : OK;
+[17:10:20] Bootstrap: OK;

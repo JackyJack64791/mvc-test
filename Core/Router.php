@@ -4,6 +4,7 @@ namespace TestMVC\Core;
 
 
 use TestMVC\Core\Interfaces\IRouter;
+use TestMVC\App\Controllers;
 
 class Router implements IRouter
 {
@@ -16,19 +17,28 @@ class Router implements IRouter
     {
         $this->bootstrap = \Bootstrap::getInstance();
         $route = "http://php.net/manual/ru/function.parse-url.php?id=42&name=JohnCena";
-        $this->bootstrap->routeTable = $this->routeTable;
     }
     public function init()
     {
         //TODO:: register rules for routes and controllers and fill routeTable
+        $controllers = array_diff(scandir(__DIR__."/../App/Controllers"),["..","."]);
+        foreach ($controllers as $value)
+        {
+            $this->addActions(str_replace(".php",'',$value));
+        }
+        print_r($controllers);
+
+        $this->bootstrap->routeTable = $this->routeTable;
     }
-    public function addRoute(string $url)
+    public function run()
     {
-        //TODO:: rework with $_SERVER['PATH_INFO'] and $_SERVER['']
-        $this->urlArray = parse_url($url);
-
-
-        $this->parseParams();
+        et_class_method
+    }
+    public function addActions(string $value)
+    {
+        $methods = get_class_methods($value);
+        if(!isset($methods)) echo "$value :c\n";
+        print_r($methods);
     }
     private function parseUri()
     {
