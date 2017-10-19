@@ -51,6 +51,7 @@ final class Bootstrap
         $this->addLogger($logPath);
         $this->configDatabase();
         $this->initRouter();
+        $this->runRouter();
         $this->getLogger()->logOk(1);
     }
 
@@ -91,6 +92,11 @@ final class Bootstrap
     {
         end(self::$registries)->router = new Router();
         end(self::$registries)->router->init();
+    }
+
+    public function runRouter()
+    {
+        end(self::$registries)->router->run();
     }
 
 }

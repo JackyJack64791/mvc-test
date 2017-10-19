@@ -1,0 +1,3 @@
+[18:10:06] Connection : OK;
+[18:10:06] Router: OK;
+[18:10:06] Bootstrap: OK;

@@ -28,7 +28,7 @@ class SiteController extends Controller
 
     public function indexAction()
     {
-        View::view();
+        View::view("site","index",["name"=>"JohnCena"]);
     }
 
 }

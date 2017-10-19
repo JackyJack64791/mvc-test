@@ -33,10 +33,10 @@ class UserController extends Controller
 
     public function searchAction()
     {
-
+        View::view($this->model,'search');
     }
     public function createAction()
     {
-
+        View::view($this->model,'create');
     }
 }

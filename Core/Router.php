@@ -5,6 +5,7 @@ namespace TestMVC\Core;
 
 use TestMVC\Core\Interfaces\IRouter;
 use TestMVC\App\Controllers;
+use TestMVC\Core\Route;
 
 class Router implements IRouter
 {
@@ -16,38 +17,62 @@ class Router implements IRouter
     public function __construct()
     {
         $this->bootstrap = \Bootstrap::getInstance();
-        $route = "http://php.net/manual/ru/function.parse-url.php?id=42&name=JohnCena";
     }
     public function init()
     {
-        //TODO:: register rules for routes and controllers and fill routeTable
         $controllers = array_diff(scandir(__DIR__."/../App/Controllers"),["..","."]);
         foreach ($controllers as $value)
         {
             $this->addActions(str_replace(".php",'',$value));
         }
-        print_r($controllers);
 
         $this->bootstrap->routeTable = $this->routeTable;
+        $this->bootstrap->getLogger()->logOk(2);
     }
     public function run()
     {
-        et_class_method
-    }
-    public function addActions(string $value)
-    {
-        $methods = get_class_methods($value);
-        if(!isset($methods)) echo "$value :c\n";
-        print_r($methods);
-    }
-    private function parseUri()
-    {
+        //TODO::Rework it;
+        //$url = $_SERVER["REQUEST_URI"];
+        $url = explode('/',"site/index");
+        var_dump($this->routeTable[3]);
+        foreach ($this->routeTable as $value)
+        {
+            if($url[0]==$value->getController() && $url[1]==$value->getAction())
+            {
+                $controllerFile = __DIR__."/../App/Controllers/".ucfirst($value->getController())."Controller.php";
+                $action = $value->getAction()."Action";
+                if(file_exists($controllerFile))
+                {
+                    include $controllerFile;
+                }
+                if(!is_callable(array($controllerFile, $action))){
+                    header("HTTP/1.0 404 Not Found");
+                    return;
+                }
 
+                call_user_func_array(array($controllerFile, $action),[]);
+
+            }
+            header("HTTP/1.0 404 Not Found");
+        }
     }
-    private function parseParams()
+    public function addActions(string $controller)
     {
-        parse_str($this->urlArray['query'], $this->params);
-        print_r($this->params);
+        $methods = $this->filterActions(get_class_methods("TestMVC\App\Controllers\\".$controller));
+
+        foreach ($methods as $value)
+        {
+            $route = new Route(
+                strtolower(str_replace("Controller",'',$controller)),
+                strtolower(str_replace("Action",'',$value)));
+            $this->routeTable[] = $route;
+        }
+    }
+    private function filterActions(array $methods)
+    {
+        return array_diff($methods,
+            [ "__construct", "__destruct", "__call", "__callStatic", "__get", "__set", "__isset", "__unset",
+                "__sleep", "__wakeup", "__toString", "__invoke", "__set_state", "__clone","__debugInfo"]);
     }
 
 

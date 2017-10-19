@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-<?php ?>
+<?=$content?>
 <script src="../../Common/js/common.js"></script>
 </body>
 </html>

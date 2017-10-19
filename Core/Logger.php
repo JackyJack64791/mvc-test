@@ -33,6 +33,9 @@ class Logger implements ILogger
             case 1:
                 $msg = "$date Bootstrap: OK;\n";
                 break;
+            case 2:
+                $msg = "$date Router: OK;\n";
+                break;
             case 20:
                 $msg = "$date Connection : OK;\n";
                 break;

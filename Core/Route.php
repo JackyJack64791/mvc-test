@@ -1,5 +1,7 @@
 <?php
 
+namespace TestMVC\Core;
+
 class Route
 {
     protected $controller;
@@ -11,5 +13,20 @@ class Route
         $this->controller = $controller;
         $this->action = $action;
         $this->params = $params;
+    }
+
+    public function getController(): string
+    {
+        return $this->controller;
+    }
+
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    public function getParams(): array
+    {
+        return $this->params;
     }
 }
