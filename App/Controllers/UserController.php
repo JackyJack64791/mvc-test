@@ -13,30 +13,31 @@ use TestMVC\App\Models\User;
 use TestMVC\Core\Controller;
 use TestMVC\Core\Model;
 use TestMVC\Core\View;
+use TestMVC\Core\Interfaces\IModel;
 
 class UserController extends Controller
 {
     private $bootstrap;
     protected $model;
 
-    public function __construct(Model $model)
+    public function __construct(IModel $model)
     {
         $this->bootstrap = \Bootstrap::getInstance();
         $this->model = $model;
-        parent::__construct($model);
+        parent::__construct($this->model);
     }
 
-    public function indexAction()
+    public function indexAction($args = [])
     {
-        View::view($this->model->getName());
+        View::view($this->model->getName(),'index',$args);
     }
 
-    public function searchAction()
+    public function searchAction($args = [])
     {
-        View::view($this->model,'search');
+        View::view($this->model->getName(),'search',$args);
     }
-    public function createAction()
+    public function createAction($args = [])
     {
-        View::view($this->model,'create');
+        View::view($this->model->getName(),'create',$args);
     }
 }

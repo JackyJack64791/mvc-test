@@ -10,9 +10,10 @@ class User extends Model
 {
     protected $tableName = 'user';
     //protected $fields = ['name'];
-    public function __construct(IDatabase $db)
+    public function __construct()
     {
-        parent::__construct($db, $this->tableName);//, $this->fields);
+        parent::__construct();//, $this->fields);
+        parent::findTable($this->tableName);
     }
 
 

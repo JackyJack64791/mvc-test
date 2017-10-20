@@ -1,0 +1,1 @@
+<p>Create a user №<?=$id?></p>

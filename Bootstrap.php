@@ -2,13 +2,16 @@
 
 use \TestMVC\Core\Registry;
 use \TestMVC\Core\Databases\MySQLDatabase;
+use \TestMVC\Core\Interfaces\IBootstrap;
+use TestMVC\Core\Interfaces\ILogger;
 use \TestMVC\Core\Logger;
 use \TestMVC\Core\Router;
 require_once 'AutoloaderNamespaces.php';
+require_once 'Core/Interfaces/IBootstrap.php';
 
 
 
-final class Bootstrap
+final class Bootstrap implements IBootstrap
 {
     private static $instance;
     private static $loggers = [];
@@ -36,7 +39,7 @@ final class Bootstrap
 
     }
 
-    public static function getInstance()
+    public static function getInstance():IBootstrap
     {
         if (!(self::$instance instanceof self))
         {
@@ -60,7 +63,7 @@ final class Bootstrap
         self::$registries[] = new Registry();
     }
 
-    public function getLogger()
+    public function getLogger() : ILogger
     {
         return end(self::$loggers);
     }

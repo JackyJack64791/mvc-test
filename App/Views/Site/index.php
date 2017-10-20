@@ -1,2 +1,2 @@
-<h1>What a story!</h1>
-<p><?php echo $name?> </p>
+<h1>What a site!</h1>
+<p><?=$name?></p>

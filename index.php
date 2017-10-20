@@ -10,8 +10,4 @@ use \TestMVC\App\Controllers\SiteController;
 require_once 'Bootstrap.php';
 $bootstrap = Bootstrap::getInstance();
 $bootstrap->init("Logs");
-$user = new User($bootstrap->db);
-
-$controller = new SiteController($user);
-$controller->indexAction();
 ?>

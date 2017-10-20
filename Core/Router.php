@@ -32,29 +32,35 @@ class Router implements IRouter
     public function run()
     {
         //TODO::Rework it;
-        //$url = $_SERVER["REQUEST_URI"];
-        $url = explode('/',"site/index");
-        var_dump($this->routeTable[3]);
+        $url="site/index?id=5";
+        //$url = strtok($_SERVER["REQUEST_URI"],'?');
+        //parse_str($_SERVER["QUERY_STRING"],$params);
+        if($url=='/' || !isset($url)) $url="site/index";
+        $url = array_values(array_filter(explode('/',$url),'strlen'));
+        if(!isset($url[1])) $url[1] = "index";
         foreach ($this->routeTable as $value)
         {
             if($url[0]==$value->getController() && $url[1]==$value->getAction())
             {
-                $controllerFile = __DIR__."/../App/Controllers/".ucfirst($value->getController())."Controller.php";
+                $controllerName = "TestMVC\App\Controllers\\".ucfirst($value->getController())."Controller";
                 $action = $value->getAction()."Action";
-                if(file_exists($controllerFile))
-                {
-                    include $controllerFile;
-                }
-                if(!is_callable(array($controllerFile, $action))){
-                    header("HTTP/1.0 404 Not Found");
+                if(!is_callable(array($controllerName, $action))){
+                    $this->notFound($url);
                     return;
                 }
-
-                call_user_func_array(array($controllerFile, $action),[]);
-
+                $model = "TestMVC\App\Models\\".ucfirst($value->getController());
+                $controller = new $controllerName(new $model);
+                call_user_func_array([$controller, $action],$params);
+                return;
             }
-            header("HTTP/1.0 404 Not Found");
         }
+        $this->notFound($url);
+    }
+
+    public function notFound($url)
+    {
+        echo "<h2>404</h2>";
+        var_dump($url);
     }
     public function addActions(string $controller)
     {

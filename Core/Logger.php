@@ -24,48 +24,51 @@ class Logger implements ILogger
         self::$count--;
     }
 
-    public function logOk($code)
+    public function logOk($code, bool $console = false)
     {
         $date = '['.date("H:m:s").']';
         $msg = '';
         switch ($code)
         {
             case 1:
-                $msg = "$date Bootstrap: OK;\n";
+                $msg = "Bootstrap: OK;\n";
                 break;
             case 2:
-                $msg = "$date Router: OK;\n";
+                $msg = "Router: OK;\n";
                 break;
             case 20:
-                $msg = "$date Connection : OK;\n";
+                $msg = "Connection : OK;\n";
                 break;
             default:
                 $msg = "Q_Q\n";
                 break;
         }
-        echo $msg;
+        if($console) echo $msg="$date ".$msg;
         file_put_contents($this->path,$msg, FILE_APPEND);
     }
-    public function logError($code)
+    public function logError($code, bool $console=false)
     {
         $date = '['.date("H:m:s").']';
         $msg = '';
         switch ($code)
         {
+            case 41:
+                $msg = "The table is not specified for this Model. Use findTable() before.\n";
+                break;
             case 42:
-                $msg = "$date Connection is broken. Check your database;\n";
+                $msg = "Connection is broken. Check your database;\n";
                 break;
             case 43:
-                $msg = "$date Connection is already closed;\n";
+                $msg = "Connection is already closed;\n";
                 break;
             case 80:
-                $msg = "$date Property is already used. Access denied;\n";
+                $msg = "Property is already used. Access denied;\n";
                 break;
             default:
-                $msg = "$date Unknown error. Please, try again;\n";
+                $msg = "Unknown error. Please, try again;\n";
                 break;
         }
-        echo $msg;
+        if($console) echo $msg="$date ".$msg;
         file_put_contents($this->path,$msg, FILE_APPEND);
     }
 
