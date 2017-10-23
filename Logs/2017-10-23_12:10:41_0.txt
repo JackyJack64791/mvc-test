@@ -1,0 +1,7 @@
+Connection : OK;
+Router: OK;
+Connection : OK;
+Router: OK;
+Connection : OK;
+Router: OK;
+Bootstrap: OK;

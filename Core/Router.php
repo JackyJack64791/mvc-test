@@ -32,35 +32,35 @@ class Router implements IRouter
     public function run()
     {
         //TODO::Rework it;
-        $url="site/index?id=5";
-        //$url = strtok($_SERVER["REQUEST_URI"],'?');
-        //parse_str($_SERVER["QUERY_STRING"],$params);
-        if($url=='/' || !isset($url)) $url="site/index";
-        $url = array_values(array_filter(explode('/',$url),'strlen'));
-        if(!isset($url[1])) $url[1] = "index";
+        $array = explode('?', $_SERVER["REQUEST_URI"]);
+        $this->urlArray = $array[0];
+        parse_str($array[1],$this->params);
+        if($this->urlArray=='/' || !isset($this->urlArray)) $this->urlArray="site/index";
+        $this->urlArray = array_values(array_filter(explode('/',$this->urlArray),'strlen'));
+        if(!isset($this->urlArray[1])) $this->urlArray[1] = "index";
         foreach ($this->routeTable as $value)
         {
-            if($url[0]==$value->getController() && $url[1]==$value->getAction())
+            if($this->urlArray[0]==$value->getController() && $this->urlArray[1]==$value->getAction())
             {
                 $controllerName = "TestMVC\App\Controllers\\".ucfirst($value->getController())."Controller";
                 $action = $value->getAction()."Action";
                 if(!is_callable(array($controllerName, $action))){
-                    $this->notFound($url);
+                    $this->notFound();
                     return;
                 }
                 $model = "TestMVC\App\Models\\".ucfirst($value->getController());
                 $controller = new $controllerName(new $model);
-                call_user_func_array([$controller, $action],$params);
+                call_user_func(array($controller, $action),$this->params);
                 return;
             }
         }
-        $this->notFound($url);
+        $this->notFound();
     }
 
-    public function notFound($url)
+    public function notFound()
     {
         echo "<h2>404</h2>";
-        var_dump($url);
+        var_dump($this->urlArray);
     }
     public function addActions(string $controller)
     {

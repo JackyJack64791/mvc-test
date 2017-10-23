@@ -10,3 +10,9 @@ body {
 h1 {
     color: #a751bb;
 }
+
+.find {
+    margin: 0 auto;
+    max-width: 600px;
+    border: 2px solid darkkhaki;
+}

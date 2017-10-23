@@ -64,31 +64,31 @@ class MySQLDatabase implements IDatabase
         return $this->isConnected;
     }
 
-    public function insert(string $tableName, array $params) :PDOStatement
+    public function insert(string $tableName, array $params) :array
     {
         $assoc_keys = " (`".implode("`, `", array_keys($params))."`)";
         $assoc_values = "('".implode("', '", $params)."') ";
 
         $query = $this->getDbConnection()->prepare("INSERT INTO $tableName $assoc_keys VALUES $assoc_values");
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function get(string $tableName, int $id) :PDOStatement
+    public function get(string $tableName, int $id) :array
     {
         $query = $this->getDbConnection()->prepare("SELECT * FROM $tableName WHERE id=$id");
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getAll(string $tableName) :PDOStatement
+    public function getAll(string $tableName) :array
     {
         $query = $this->getDbConnection()->prepare("SELECT * FROM $tableName");
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function update(string $tableName, int $id, array $params) :PDOStatement
+    public function update(string $tableName, int $id, array $params) :array
     {
         $assoc_string = '';
         foreach($params as $first=>$second)
@@ -97,21 +97,21 @@ class MySQLDatabase implements IDatabase
         }
         $query = $this->getDbConnection()->prepare("UPDATE $tableName SET $assoc_string WHERE id=$id");
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function delete(string $tableName, int $id) :PDOStatement
+    public function delete(string $tableName, int $id) :array
     {
         $query = $this->getDbConnection()->prepare("DELETE FROM $tableName WHERE id=$id");
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public  function query(string $query): PDOStatement
+    public  function query(string $query): array
     {
         $query = $this->getDbConnection()->prepare($query);
         $query->execute();
-        return $query;
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 

@@ -38,27 +38,27 @@ class Model implements IModel
         return ($this->validate()) ? $this->tableName : null;
     }
 
-    public function insert(array $params) :PDOStatement
+    public function insert(array $params) :array
     {
         if($this->validate()) return $this->db->insert($this->tableName,$params);
     }
-    public function update(int $id, array $params) :PDOStatement
+    public function update(int $id, array $params) :array
     {
         if($this->validate()) return $this->db->update($this->tableName,$id,$params);
     }
-    public function delete(int $id) :PDOStatement
+    public function delete(int $id) :array
     {
         if($this->validate()) return $this->db->delete($this->tableName,$id);
     }
-    public function get(int $id) :PDOStatement
+    public function get(int $id) :array
     {
         if($this->validate()) return $this->db->get($this->tableName,$id);
     }
-    public function getAll() :PDOStatement
+    public function getAll() :array
     {
         if($this->validate()) return $this->db->getAll($this->tableName);
     }
-    public function query(string $query) :PDOStatement
+    public function query(string $query) :array
     {
         if($this->validate()) return $this->db->query($query);
     }

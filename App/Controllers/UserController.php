@@ -27,17 +27,18 @@ class UserController extends Controller
         parent::__construct($this->model);
     }
 
-    public function indexAction($args = [])
+
+    public function indexAction(array $args)
     {
-        View::view($this->model->getName(),'index',$args);
+        View::view($this->model->getName(),'index',$this->model->getAll());
     }
 
-    public function searchAction($args = [])
+    public function searchAction(array $args)
     {
         View::view($this->model->getName(),'search',$args);
     }
-    public function createAction($args = [])
+    public function createAction(array $args)
     {
-        View::view($this->model->getName(),'create',$args);
+        View::view($this->model->getName(),'create', $args);
     }
 }

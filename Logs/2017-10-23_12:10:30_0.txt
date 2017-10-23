@@ -1,0 +1,4 @@
+Connection : OK;
+Router: OK;
+Connection : OK;
+Router: OK;

@@ -16,17 +16,17 @@ interface IDatabase
 
     public function isConnected():bool;
 
-    public function insert(string $tableName, array $params) :PDOStatement;
+    public function insert(string $tableName, array $params) :array;
 
-    public function get(string $tableName, int $id) :PDOStatement;
+    public function get(string $tableName, int $id) :array;
 
-    public function getAll(string $tableName) :PDOStatement;
+    public function getAll(string $tableName) :array;
 
-    public function update(string $tableName, int $id,  array $params) :PDOStatement;
+    public function update(string $tableName, int $id,  array $params) :array;
 
-    public function delete(string $tableName, int $id) :PDOStatement;
+    public function delete(string $tableName, int $id) :array;
 
-    public function query(string $query): PDOStatement;
+    public function query(string $query): array;
 
 
 
